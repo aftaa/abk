@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Зарегистрировать нового клиента{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-6">
+            {{ form(form) }}
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('.form-control').val('123');
+        });
+
+        $('form').on('submit', function () {
+            var object = {};
+            $('.form-control').each(function(value, key){
+                object[this.id.replace('client_', '')] = this.value;
+            });
+
+            var fields = JSON.stringify(object);
+            console.log(fields);
+
+            $.post('/api/client/create', fields, function (answer) {
+                alert(answer);
+            }, 'json');
+            return false;
+        });
+    </script>
+
+{% endblock %}
+
