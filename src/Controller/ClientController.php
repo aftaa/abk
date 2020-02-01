@@ -6,8 +6,9 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
-use App\Service\ClientManager;
+use App\Service\ClientManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,10 +17,10 @@ class ClientController extends AbstractController
 {
     /**
      * @Route("/client/list", name="client_list", methods={"GET"})
-     * @param ClientManager $clientManager
+     * @param ClientManagerInterface $clientManager
      * @return Response
      */
-    public function index(ClientManager $clientManager)
+    public function index(ClientManagerInterface $clientManager)
     {
         $clients = $clientManager->getClients();
 
@@ -30,14 +31,16 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/client/create", name="create_client")
+     * @param ClientManagerInterface $clientManager
+     * @return Response
      */
-    public function create()
+    public function create(ClientManagerInterface $clientManager)
     {
         $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
+        $form = $this->createForm(ClientType::class, $client)->createView();
 
         return $this->render('client/create.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

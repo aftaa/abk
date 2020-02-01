@@ -4,10 +4,11 @@
 namespace App\Service;
 
 use App\Entity\Client;
+use App\Form\ClientType;
 use Doctrine\ORM\EntityManagerInterface as Doctrine;
-use PhpParser\Comment\Doc;
+use Symfony\Component\Form\FormFactoryBuilder;
 
-class ClientManager
+class ClientManager implements ClientManagerInterface
 {
     /**
      * @var Doctrine
@@ -16,6 +17,7 @@ class ClientManager
 
     /**
      * ClientManager constructor.
+     *
      * @param Doctrine $doctrine
      */
     public function __construct(Doctrine $doctrine)
@@ -23,8 +25,12 @@ class ClientManager
         $this->doctrine = $doctrine;
     }
 
-    public function getClients()
+    /**
+     * @return Client[]
+     */
+    public function getClients(): array
     {
+        /** @var Client[] $clients */
         $clients = $this->doctrine
             ->getRepository(Client::class)
             ->findAll();
