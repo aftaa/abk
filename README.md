@@ -3,7 +3,7 @@
 Зарегистрировать нового клиента<br>
 Все поля обязательны к заполнению<br>
 <br>
-POST https://abk.aftaa.ru/client/create<br>
+POST https://api.abk.aftaa.ru/client/create<br>
 {<br>
   "first_name":"",<br>
   "last_name":"",<br>
