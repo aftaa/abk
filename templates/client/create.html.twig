@@ -24,8 +24,8 @@
             var fields = JSON.stringify(object);
             console.log(fields);
 
-            $.post('/api/client/create', fields, function (answer) {
-                alert(answer);
+            $.post('https://api.abk.aftaa.ru/api/client/create', fields, function (answer) {
+                alert('success=' + answer.success);
             }, 'json');
             return false;
         });
