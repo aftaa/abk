@@ -6,12 +6,14 @@
 
     <table class="table table-hover">
         <thead>
+        <th>ID</th>
         <th>first name</th>
         <th>last name</th>
         <th>phone</th>
         </thead>
         {% for client in clients %}
             <tr>
+                <td>{{ client.id }}</td>
                 <td>{{ client.firstName }}</td>
                 <td>{{ client.lastName }}</td>
                 <td>{{ client.phone }}</td>

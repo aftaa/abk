@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CarOwner{% endblock %}
+
+{% block body %}
+    <h1>CarOwner</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ car_owner.id }}</td>
+            </tr>
+            <tr>
+                <th>First_name</th>
+                <td>{{ car_owner.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Last_name</th>
+                <td>{{ car_owner.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Middle_name</th>
+                <td>{{ car_owner.middleName }}</td>
+            </tr>
+            <tr>
+                <th>Passport_series</th>
+                <td>{{ car_owner.passportSeries }}</td>
+            </tr>
+            <tr>
+                <th>Passport_number</th>
+                <td>{{ car_owner.passportNumber }}</td>
+            </tr>
+            <tr>
+                <th>License_series</th>
+                <td>{{ car_owner.licenseSeries }}</td>
+            </tr>
+            <tr>
+                <th>License_number</th>
+                <td>{{ car_owner.licenseNumber }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ car_owner.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('car_owner_index') }}">back to list</a>
+
+    <a href="{{ path('car_owner_edit', {'id': car_owner.id}) }}">edit</a>
+
+    {{ include('car_owner/_delete_form.html.twig') }}
+{% endblock %}

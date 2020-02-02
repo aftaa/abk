@@ -34,7 +34,7 @@ class ClientManager implements ClientManagerInterface
     public function getClients(): array
     {
         /** @var Client[] $clients */
-        $clients = $this->entityManager->getRepository(Client::class)->findAll();
+        $clients = $this->entityManager->getRepository(Client::class)->findAllOrderByDesc();
         return $clients;
     }
 
