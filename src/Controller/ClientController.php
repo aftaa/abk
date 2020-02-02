@@ -8,7 +8,6 @@ use App\Entity\Client;
 use App\Form\ClientType;
 use App\Service\ClientManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

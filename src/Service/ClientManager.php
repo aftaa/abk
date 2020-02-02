@@ -4,25 +4,28 @@
 namespace App\Service;
 
 use App\Entity\Client;
-use App\Form\ClientType;
-use Doctrine\ORM\EntityManagerInterface as Doctrine;
-use Symfony\Component\Form\FormFactoryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ClientManager implements ClientManagerInterface
 {
-    /**
-     * @var Doctrine
-     */
-    private $doctrine;
+    /** @var SerializerInterface */
+    private $serializer;
+
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     /**
      * ClientManager constructor.
-     *
-     * @param Doctrine $doctrine
+     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(Doctrine $doctrine)
+    public function __construct(
+        SerializerInterface $serializer,
+        EntityManagerInterface $entityManager)
     {
-        $this->doctrine = $doctrine;
+        $this->serializer = $serializer;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -31,9 +34,19 @@ class ClientManager implements ClientManagerInterface
     public function getClients(): array
     {
         /** @var Client[] $clients */
-        $clients = $this->doctrine
-            ->getRepository(Client::class)
-            ->findAll();
+        $clients = $this->entityManager->getRepository(Client::class)->findAll();
         return $clients;
+    }
+
+    /**
+     * @param string $jsonData
+     * @return string
+     */
+    public function createClientJSON(string $jsonData): string
+    {
+        $client = $this->serializer->deserialize($jsonData, Client::class, 'json');
+        $this->entityManager->persist($client);
+        $this->entityManager->flush();
+        return $this->serializer->serialize(['success' => true], 'json');
     }
 }
